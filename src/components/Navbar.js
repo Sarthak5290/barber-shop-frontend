@@ -138,7 +138,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <Link
               href="/reservation"
-              className="relative py-20 pl-8 pr-8   px-4 py-1.5 font-medium text-sm bg-[#907454] text-white hover:bg-[#82694b] transition-all duration-300 group"
+              className="relative py-20 pl-8 pr-8   px-4 font-medium text-sm bg-[#907454] text-white hover:bg-[#82694b] transition-all duration-300 group"
             >
               <span>RESERVATION</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
