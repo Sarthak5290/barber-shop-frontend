@@ -5,6 +5,7 @@ import Image from "next/image";
 import logo from "../assets/logo-light.svg";
 import SearchOverlay from "./SearchOverlay";
 import MenuOverlay from "./MenuOverlay.js";
+import { Menu, X, Home, Search, List, Calendar } from "lucide-react";
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -46,7 +47,7 @@ const Navbar = () => {
   return (
     <>
       <header
-        className={`relative w-full bg-transparent transition-all duration-500 z-50 py-4`}
+        className={`relative w-full bg-transparent transition-all duration-500 z-40 py-4`}
         style={{
           fontFamily: "Merriweather-Regular, sans-serif",
           top: "50px", // Move navbar down by 20px
@@ -70,30 +71,10 @@ const Navbar = () => {
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="rounded-full p-2 text-white hover:bg-white/10 transition-colors duration-300 focus:outline-none"
+              className="rounded-full p-2 text-white hover:bg-white/20 transition-colors duration-300 focus:outline-none"
+              aria-label="Toggle mobile menu"
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                {mobileMenuOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              <Menu size={24} strokeWidth={2} />
             </button>
           </div>
 
@@ -157,7 +138,7 @@ const Navbar = () => {
           <div className="md:hidden">
             <Link
               href="/reservation"
-              className="relative rounded-full px-4 py-1.5 font-medium text-sm bg-[#907454] text-white hover:bg-[#82694b] transition-all duration-300 group"
+              className="relative py-20 pl-8 pr-8   px-4 py-1.5 font-medium text-sm bg-[#907454] text-white hover:bg-[#82694b] transition-all duration-300 group"
             >
               <span>RESERVATION</span>
               <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full"></span>
@@ -165,39 +146,96 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile menu */}
+        {/* Mobile menu - Completely Dark Theme */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-sm shadow-lg mt-2 rounded-b-lg overflow-hidden">
-            <div className="px-4 py-3 space-y-2">
-              <Link
-                href="/"
-                className="block px-4 py-2.5 text-base font-medium text-gray-700 hover:text-[#907454] hover:bg-[#f7f3ee] rounded-lg transition-colors duration-200"
-                onClick={() => setMobileMenuOpen(false)}
+          <div
+            className="md:hidden fixed inset-0 z-50 animate-mobileMenu-enter"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {/* Solid black backdrop */}
+            <div className="absolute inset-0 bg-black"></div>
+
+            {/* Menu container */}
+            <div className="relative flex flex-col h-full w-full max-w-sm ml-auto bg-black">
+              {/* Header */}
+              <div
+                className="flex items-center justify-between p-6 animate-fadeDown border-b border-zinc-900"
+                style={{ animationDelay: "100ms" }}
               >
-                HOME
-              </Link>
-              <a
-                href="#"
-                className="block px-4 py-2.5 text-base font-medium text-gray-700 hover:text-[#907454] hover:bg-[#f7f3ee] rounded-lg transition-colors duration-200"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  setSearchOpen(true);
-                }}
+                <h2 className="text-lg font-semibold text-white">Navigation</h2>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-2 rounded-full hover:bg-zinc-900 transition-colors"
+                  aria-label="Close menu"
+                >
+                  <X size={24} className="text-[#907454]" />
+                </button>
+              </div>
+
+              {/* Menu items */}
+              <div
+                className="p-6 space-y-4 animate-fadeDown"
+                style={{ animationDelay: "200ms" }}
               >
-                SEARCH
-              </a>
-              <a
-                href="#"
-                className="block px-4 py-2.5 text-base font-medium text-gray-700 hover:text-[#907454] hover:bg-[#f7f3ee] rounded-lg transition-colors duration-200"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  setMenuOpen(true);
-                }}
+                <Link
+                  href="/"
+                  className="flex items-center w-full px-5 py-4 text-base font-medium text-white hover:text-[#907454] bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-all duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Home size={20} className="mr-3 text-[#907454]" />
+                  HOME
+                </Link>
+
+                <a
+                  href="#"
+                  className="flex items-center w-full px-5 py-4 text-base font-medium text-white hover:text-[#907454] bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-all duration-200"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    setSearchOpen(true);
+                  }}
+                >
+                  <Search size={20} className="mr-3 text-[#907454]" />
+                  SEARCH
+                </a>
+
+                <a
+                  href="#"
+                  className="flex items-center w-full px-5 py-4 text-base font-medium text-white hover:text-[#907454] bg-zinc-900 hover:bg-zinc-800 rounded-lg transition-all duration-200"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setMobileMenuOpen(false);
+                    setMenuOpen(true);
+                  }}
+                >
+                  <List size={20} className="mr-3 text-[#907454]" />
+                  MENU
+                </a>
+
+                <div className="h-px w-full bg-zinc-900 my-4"></div>
+
+                <Link
+                  href="/reservation"
+                  className="flex items-center w-full px-5 py-4 text-base font-medium text-white hover:text-white/90 bg-[#907454] hover:bg-[#82694b] rounded-lg transition-all duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Calendar size={20} className="mr-3 text-white" />
+                  RESERVATION
+                </Link>
+              </div>
+
+              {/* Footer */}
+              <div
+                className="mt-auto p-6 border-t border-zinc-900 animate-fadeUp"
+                style={{ animationDelay: "300ms" }}
               >
-                MENU
-              </a>
+                <p className="text-sm text-zinc-500 text-center">
+                  © 2025 Your Brand
+                </p>
+                <p className="text-xs text-zinc-700 text-center mt-1">
+                  Press ESC to close
+                </p>
+              </div>
             </div>
           </div>
         )}
@@ -208,6 +246,65 @@ const Navbar = () => {
 
       {/* Menu Overlay */}
       <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+
+      {/* Global styles for animations */}
+      <style jsx global>{`
+        @keyframes mobileMenuEnter {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        @keyframes mobileMenuExit {
+          0% {
+            opacity: 1;
+          }
+          100% {
+            opacity: 0;
+          }
+        }
+
+        @keyframes fadeDown {
+          from {
+            opacity: 0;
+            transform: translateY(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        .animate-mobileMenu-enter {
+          animation: mobileMenuEnter 0.4s ease-out forwards;
+        }
+
+        .animate-mobileMenu-exit {
+          animation: mobileMenuExit 0.4s ease-in forwards;
+        }
+
+        .animate-fadeDown {
+          animation: fadeDown 0.5s ease-out forwards;
+        }
+
+        .animate-fadeUp {
+          animation: fadeUp 0.5s ease-out forwards;
+        }
+      `}</style>
     </>
   );
 };
