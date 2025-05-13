@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 244, 242, 239;
+  --background-end-rgb: 244, 242, 239;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-start-rgb));
+  padding-top: 80px; /* Height of navbar */
+}
+
+@font-face {
+  font-family: "Merriweather-Regular";
+  src: url("https://fonts.googleapis.com/css2?family=Merriweather:wght@400&display=swap");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer components {
+  .nav-link {
+    @apply relative px-4 py-2 font-medium text-gray-600 transition-colors duration-300 hover:text-gray-900;
+  }
+
+  .nav-link::after {
+    @apply absolute bottom-0 left-0 w-0 h-0.5 bg-gray-500 transition-all duration-300;
+    content: "";
+  }
+
+  .nav-link:hover::after {
+    @apply w-full;
+  }
+}
